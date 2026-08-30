@@ -1,54 +1,31 @@
-fileObject = open("Day1/input.txt", "r")
+with open("input.txt", "r") as file:
 
-Datalist = []
+    dataList = []
 
-while(True):
-    line = fileObject.readline()
-    if not line:
-        break
-    Datalist.append(int(line.strip()))
+    while(True):
+        line = file.readline()
+        if not line:
+            break
+        dataList.append(int(line.strip()))
 
-fileObject.close
+def countIncrease(array):
+    res = 0
+    l = len(array)
+    for i in range(l-1):
+        if array[i] < array[i+1]:
+            res += 1
+    return res
 
-#comp = 0
-
-#for x in range(len(Datalist)):
-#    if x == 0:
-#        prev = Datalist[x]
-#        continue
-#    if prev < Datalist[x]:
-#        comp = comp + 1
-#    prev = Datalist[x]
-
-#print(comp)
-    
-acomp = 0
-A = [0,0,0]
-B = [0,0,0]
-
-for i in range(len(Datalist)):
-    if i == 0:
-        A[0] = Datalist[i]
-        continue
-    B[2] = B[1]
-    B[1] = B[0]
-    B[0] = Datalist[i]
-    if i >= 3:
-        a = A[0] + A[1] + A[2]
-        b = B[0] + B[1] + B[2]
-        if b > a:
-            acomp = acomp + 1
-    A[2] = A[1]
-    A[1] = A[0]
-    A[0] = Datalist[i]
-
-print(acomp)
+def countSlidingWindowIncrease(array):
+    res = 0
+    l = len(array)
+    prev = array[0] + array[1] + array[2]
+    for i in range(l-3):
+        cur = prev - array[i] + array[i+3]
+        if prev < cur:
+            res += 1
+        prev = cur
+    return res
 
 
-
-
- 
-
-
-
-# def NoInc(depths):
+print(countSlidingWindowIncrease(dataList))
